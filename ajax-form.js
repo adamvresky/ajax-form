@@ -486,6 +486,17 @@
                     // method attr?  Perhaps something special about this attr?
                     // Need to look into this further.
                     ajaxForm.acceptableMethod = getValidMethod(ajaxForm.getAttribute('method'));
+                    
+                    var observer = new MutationObserver(function(mutations) {
+                      ajaxForm.acceptableMethod = getValidMethod(ajaxForm.getAttribute('method'));
+                    });
+
+                    var observerConfig = {
+                    	attributes: true
+                    };
+
+                    var targetNode = ajaxForm;
+                    observer.observe(targetNode, observerConfig);
 
                     // default method is GET
                     ajaxForm.acceptableMethod = ajaxForm.acceptableMethod || 'GET';
